@@ -1,0 +1,22 @@
+关于报警装置与GUI程序之间的通信规则
+
+报警装置传递alarm_id status [id]给GUI程序,
+GUI程序返回id
+若是报警装置带id传给GUI值,则说明是id报警状态被修改,
+若是不带id, 则产生新的报警项
+
+
+
+status有7个值
+1 normal
+2 alarm
+3 low
+4 high
+5 not available
+6 auto cut-out
+7 manual cut-out
+
+
+test
+cutout alarm_id
+active alarm_id

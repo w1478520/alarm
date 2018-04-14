@@ -1,0 +1,14 @@
+channel_id 按照连接顺序安排id
+Date	   连接的日期
+Time	   连接的时间
+Description 描述所管理的报警项目
+Status      连接或者断开
+
+
+报警装置一旦连接上GUI程序, 首先发送一连串代表报警项目的数字
+GUI立马读取这些数字并生成Description Date Time channel_id status插入数据库,
+保存QTcpSocket*
+
+测试功能,每隔一段时间自动测试信道是否通畅, 不通畅就尝试重新连接,不能重连就产生报警项
+
+
