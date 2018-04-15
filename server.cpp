@@ -1,5 +1,4 @@
 #include "server.h"
-#include "lock.h"
 #include "alarm_list.h"
 #include "connection.h"
 #include <QMessageBox>

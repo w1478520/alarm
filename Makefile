@@ -788,7 +788,6 @@ navigation.o: navigation.cpp navigation.h \
 server.o: server.cpp server.h \
 		connection.h \
 		signal_temp.h \
-		lock.h \
 		alarm_list.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server.o server.cpp
 
