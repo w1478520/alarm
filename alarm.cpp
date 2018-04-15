@@ -77,6 +77,7 @@ void Alarm::cutout(){
         p->setText(3, QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss"));
         set_row_color(p, "gray");
         int x = p->text(0).toInt();
+        event_log(7, "alarm id is "+p->text(0));
         emit cut_out_(x);
     }
 }
@@ -91,6 +92,7 @@ void Alarm::un_cutout(){
         p->setText(2, "normal");
         p->setText(3, QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss"));
         set_row_color(p, "green");
+        event_log(6, "alarm id is "+p->text(0));
         emit re_active(p->text(0).toInt());
     }
 }
@@ -109,6 +111,7 @@ void Alarm::update_datebase(){
         return;
     }
     while(query.next()){
+        event_log(15, "the alarm id is " + query.value(0).toString() + " and the description is " + query.value(1).toString());
         QTreeWidgetItem* item = new QTreeWidgetItem(treeWidget);
         item->setText(0, query.value(0).toString());
         item->setText(1, query.value(1).toString());

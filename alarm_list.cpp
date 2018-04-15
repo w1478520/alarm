@@ -168,7 +168,7 @@ void Alarm_list::update_data(int id){
 void Alarm_list::ack(){
     QList<QTreeWidgetItem*> target_list = treeWidget->selectedItems();
     if(target_list.size() != 1){
-        QMessageBox::critical(nullptr, "selected error:", "you can not select lots of item's to get the info, please try again");
+        QMessageBox::critical(nullptr, "selected error:", "you have to select one item, please try again");
         return;
     }
     for(QTreeWidgetItem* p:target_list){
@@ -186,11 +186,13 @@ void Alarm_list::ack(){
                 sql_exec("update alarm_list set ack = 5 where id=" + p->text(3) + ";");
                 p->setIcon(0, QIcon("picture/5.png"));
                 set_row_color(p, "yellow");
+                event_log(8, "the alarm_id is "+ query.value(0).toString());
             }
         }
     }
 }
 void Alarm_list::ack_all(){
+    event_log(9, "all alarm");
     QList<QTreeWidgetItem*> target_list = treeWidget->findItems("", Qt::MatchContains, 3);
     for(QTreeWidgetItem* p:target_list){
         QSqlQuery query;

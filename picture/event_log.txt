@@ -2,25 +2,23 @@
 	event_id
 	datetime
 	class
-	description
+		1	channel connected				the channel connected time is            
+		2	channel test				the channel connected time is
+		3	channel disconnected:manual		the channel connected time is
+		4	channel disconnected:auto		the channel connected time is
+		5	channel disconnected:test		the channel connected time is
+		6	manage alarm:active                  alarm_id is
+		7	manage alarm:cut out                 alarm_id is
+		8	handle alarm:ack                     id is 1
+		9	handle alarm:ack all			all
+		10	raise alarm:normal			alarm_id is
+		11	raise alarm:alarm				alarm_id is
+		12	raise alarm:low				alarm_id is
+		13	raise alarm:high				alarm_id is
+		14	raise alarm:cut out			alarm_id is
+		15	inilize add alarm                   alarm_id is  and description
 
 
-
-对信道的操作
-	信道连接
-	信道测试
-	信道断开(主动)
-	信道断开(被动)
-	信道断开(测试断开)
-
-管理报警项目
-	激活报警项目
-	锁闭报警项目
-报警处理
-	确认报警
-	确认报警(全部)
-
-报警状态
-	产生报警(激活)
-	产生报警(锁闭)
-
+事件搜索 event_id  datetime  class description
+事件日志导出
+上下翻页

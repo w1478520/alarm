@@ -33,7 +33,8 @@ SOURCES += \
     connection.cpp \
     event_log.cpp \
     alarm.cpp \
-    channel.cpp
+    channel.cpp \
+    signal_temp.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,7 +45,8 @@ HEADERS += \
     connection.h \
     event_log.h \
     alarm.h \
-    channel.h
+    channel.h \
+    signal_temp.h
 
 FORMS += \
     navigation.ui

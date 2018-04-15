@@ -59,7 +59,8 @@ SOURCES       = main.cpp \
 		connection.cpp \
 		event_log.cpp \
 		alarm.cpp \
-		channel.cpp moc_mainwindow.cpp \
+		channel.cpp \
+		signal_temp.cpp moc_mainwindow.cpp \
 		moc_navigation.cpp \
 		moc_server.cpp \
 		moc_thread.cpp \
@@ -67,7 +68,8 @@ SOURCES       = main.cpp \
 		moc_connection.cpp \
 		moc_event_log.cpp \
 		moc_alarm.cpp \
-		moc_channel.cpp
+		moc_channel.cpp \
+		moc_signal_temp.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		navigation.o \
@@ -78,6 +80,7 @@ OBJECTS       = main.o \
 		event_log.o \
 		alarm.o \
 		channel.o \
+		signal_temp.o \
 		moc_mainwindow.o \
 		moc_navigation.o \
 		moc_server.o \
@@ -86,7 +89,8 @@ OBJECTS       = main.o \
 		moc_connection.o \
 		moc_event_log.o \
 		moc_alarm.o \
-		moc_channel.o
+		moc_channel.o \
+		moc_signal_temp.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -259,7 +263,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		connection.h \
 		event_log.h \
 		alarm.h \
-		channel.h main.cpp \
+		channel.h \
+		signal_temp.h main.cpp \
 		mainwindow.cpp \
 		navigation.cpp \
 		server.cpp \
@@ -268,7 +273,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		connection.cpp \
 		event_log.cpp \
 		alarm.cpp \
-		channel.cpp
+		channel.cpp \
+		signal_temp.cpp
 QMAKE_TARGET  = alarm
 DESTDIR       = 
 TARGET        = alarm
@@ -636,8 +642,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h navigation.h server.h thread.h alarm_list.h connection.h event_log.h alarm.h channel.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp navigation.cpp server.cpp thread.cpp alarm_list.cpp connection.cpp event_log.cpp alarm.cpp channel.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h navigation.h server.h thread.h alarm_list.h connection.h event_log.h alarm.h channel.h signal_temp.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp navigation.cpp server.cpp thread.cpp alarm_list.cpp connection.cpp event_log.cpp alarm.cpp channel.cpp signal_temp.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents navigation.ui $(DISTDIR)/
 
 
@@ -670,9 +676,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_navigation.cpp moc_server.cpp moc_thread.cpp moc_alarm_list.cpp moc_connection.cpp moc_event_log.cpp moc_alarm.cpp moc_channel.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_navigation.cpp moc_server.cpp moc_thread.cpp moc_alarm_list.cpp moc_connection.cpp moc_event_log.cpp moc_alarm.cpp moc_channel.cpp moc_signal_temp.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_navigation.cpp moc_server.cpp moc_thread.cpp moc_alarm_list.cpp moc_connection.cpp moc_event_log.cpp moc_alarm.cpp moc_channel.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_navigation.cpp moc_server.cpp moc_thread.cpp moc_alarm_list.cpp moc_connection.cpp moc_event_log.cpp moc_alarm.cpp moc_channel.cpp moc_signal_temp.cpp
 moc_mainwindow.cpp: alarm_list.h \
 		navigation.h \
 		ui_navigation.h \
@@ -691,6 +697,7 @@ moc_navigation.cpp: ui_navigation.h \
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/silence/program/GUI/alarm -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtSql -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.1 -I/usr/include/c++/7.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include-fixed -I/usr/include navigation.h -o moc_navigation.cpp
 
 moc_server.cpp: connection.h \
+		signal_temp.h \
 		server.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -706,7 +713,8 @@ moc_alarm_list.cpp: alarm_list.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/silence/program/GUI/alarm -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtSql -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.1 -I/usr/include/c++/7.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include-fixed -I/usr/include alarm_list.h -o moc_alarm_list.cpp
 
-moc_connection.cpp: connection.h \
+moc_connection.cpp: signal_temp.h \
+		connection.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/silence/program/GUI/alarm -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtSql -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.1 -I/usr/include/c++/7.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include-fixed -I/usr/include connection.h -o moc_connection.cpp
@@ -725,6 +733,11 @@ moc_channel.cpp: channel.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/silence/program/GUI/alarm -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtSql -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.1 -I/usr/include/c++/7.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include-fixed -I/usr/include channel.h -o moc_channel.cpp
+
+moc_signal_temp.cpp: signal_temp.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/silence/program/GUI/alarm -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtSql -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.1 -I/usr/include/c++/7.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include-fixed -I/usr/include signal_temp.h -o moc_signal_temp.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -753,7 +766,10 @@ main.o: main.cpp mainwindow.h \
 		ui_navigation.h \
 		alarm.h \
 		event_log.h \
-		channel.h
+		channel.h \
+		thread.h \
+		connection.h \
+		signal_temp.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
@@ -771,29 +787,43 @@ navigation.o: navigation.cpp navigation.h \
 
 server.o: server.cpp server.h \
 		connection.h \
+		signal_temp.h \
 		lock.h \
 		alarm_list.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server.o server.cpp
 
 thread.o: thread.cpp thread.h \
 		server.h \
-		connection.h
+		connection.h \
+		signal_temp.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o thread.o thread.cpp
 
-alarm_list.o: alarm_list.cpp alarm_list.h
+alarm_list.o: alarm_list.cpp alarm_list.h \
+		connection.h \
+		signal_temp.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o alarm_list.o alarm_list.cpp
 
-connection.o: connection.cpp connection.h
+connection.o: connection.cpp connection.h \
+		signal_temp.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o connection.o connection.cpp
 
-event_log.o: event_log.cpp event_log.h
+event_log.o: event_log.cpp event_log.h \
+		connection.h \
+		signal_temp.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o event_log.o event_log.cpp
 
-alarm.o: alarm.cpp alarm.h
+alarm.o: alarm.cpp alarm.h \
+		connection.h \
+		signal_temp.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o alarm.o alarm.cpp
 
-channel.o: channel.cpp channel.h
+channel.o: channel.cpp channel.h \
+		connection.h \
+		signal_temp.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o channel.o channel.cpp
+
+signal_temp.o: signal_temp.cpp signal_temp.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o signal_temp.o signal_temp.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
@@ -821,6 +851,9 @@ moc_alarm.o: moc_alarm.cpp
 
 moc_channel.o: moc_channel.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_channel.o moc_channel.cpp
+
+moc_signal_temp.o: moc_signal_temp.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_signal_temp.o moc_signal_temp.cpp
 
 ####### Install
 

@@ -61,6 +61,7 @@ void Channel::new_channel(int channel_id){
         channel_id_string = query.value(0).toString();
         descriotion = query.value(1).toString();
         time = query.value(2).toString();
+        time[10] = ' ';
         if(query.value(3).toInt() == 1)
             status = "Connected";
         else
@@ -78,13 +79,16 @@ void Channel::new_channel(int channel_id){
 }
 
 void Channel::test(){
+
     QList<QTreeWidgetItem*> targets = treeWidget->selectedItems();
     for(QTreeWidgetItem* p:targets){
+        event_log(2, "channel id is " + p->text(0));
         emit test_signal(p->text(0).toInt());
     }
 }
 
 void Channel::test_all(){
+    event_log(2, "test all channel");
     QList<QTreeWidgetItem*> list = treeWidget->findItems("", Qt::MatchContains, 0);
     for(QTreeWidgetItem* p:list){
         emit test_signal(p->text(0).toInt());
@@ -94,6 +98,7 @@ void Channel::test_all(){
 void Channel::close(){
     QList<QTreeWidgetItem*> targets = treeWidget->selectedItems();
     for(QTreeWidgetItem* p:targets){
+        event_log(3, "the channel id is "+p->text(0));
         emit close_signal(p->text(0).toInt());
     }
 }
